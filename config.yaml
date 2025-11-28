@@ -1,0 +1,35 @@
+# Project Configuration
+# Adjust settings as needed for your environment
+
+# Data paths
+data:
+  raw: data/raw
+  processed: data/processed
+  external: data/external
+
+# Model paths
+model:
+  save_dir: models
+  checkpoint_dir: models/checkpoints
+
+# Logging
+logging:
+  level: INFO  # Change to DEBUG for more verbose output
+  dir: logs
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# MLflow experiment tracking
+mlflow:
+  tracking_uri: ./mlruns
+  experiment_name: recession_indicators
+
+# Training parameters
+training:
+  random_seed: 42
+  test_size: 0.2
+  validation_size: 0.1
+
+# Development options (set to false for production)
+dev:
+  use_sample_data: false  # Set true to use subset for faster iteration
+  sample_size: 1000
