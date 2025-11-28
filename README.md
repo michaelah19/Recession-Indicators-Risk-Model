@@ -35,6 +35,15 @@ This project uses the [US Recession and Financial Indicators](https://www.kaggle
 
 ### 1. Setup Environment
 
+**Option A: Using UV (Recommended - faster)**
+```bash
+# Install dependencies with UV
+uv sync --all-extras
+
+# UV automatically manages the virtual environment
+```
+
+**Option B: Using pip**
 ```bash
 # Create virtual environment
 python -m venv venv
@@ -47,9 +56,18 @@ make install-dev
 ### 2. Configure Kaggle API
 
 1. Create account at https://www.kaggle.com
-2. Go to Account → Create New API Token
-3. Save `kaggle.json` to `~/.kaggle/kaggle.json`
-4. Set permissions (Mac/Linux): `chmod 600 ~/.kaggle/kaggle.json`
+2. Go to Account → Settings → API → Create New Token
+
+**Option A: Modern API Token (Recommended)**
+```bash
+# Set environment variable (add to ~/.zshrc or ~/.bashrc for persistence)
+export KAGGLE_API_TOKEN=KGAT_your_token_here
+```
+
+**Option B: Legacy JSON File**
+1. Download `kaggle.json` from Kaggle account settings
+2. Save to `~/.kaggle/kaggle.json`
+3. Set permissions (Mac/Linux): `chmod 600 ~/.kaggle/kaggle.json`
 
 ### 3. Download Data
 
@@ -67,6 +85,15 @@ make notebook  # Opens Jupyter Lab
 
 ## Development Commands
 
+**Using UV:**
+```bash
+uv sync --all-extras    # Install all dependencies
+uv run pytest           # Run tests
+uv run jupyter lab      # Start Jupyter Lab
+# For other commands, use make as shown below
+```
+
+**Using Make (works with both pip and UV):**
 ```bash
 make help          # Show all available commands
 make install       # Install production dependencies only
