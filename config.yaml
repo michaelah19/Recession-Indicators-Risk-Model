@@ -7,6 +7,11 @@ data:
   processed: data/processed
   external: data/external
 
+# NBER Recession Data
+nber:
+  series_id: USREC  # FRED series ID for US recession indicator
+  fred_api_key: ${FRED_API_KEY}  # Optional: set FRED_API_KEY environment variable
+
 # Model paths
 model:
   save_dir: models
