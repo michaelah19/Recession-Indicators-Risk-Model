@@ -27,7 +27,12 @@ sys.path.insert(0, str(project_root))
 import pandas as pd
 
 from src.features.engineer import FeatureEngineer
-from src.features.targets import create_recession_targets, split_features_targets
+from src.features.targets import (
+    create_recession_targets,
+    create_indicator_change_targets,
+    add_targets_to_features,
+    split_features_targets
+)
 from src.features.selector import FeatureSelector
 from src.utils.config import load_config, get_data_paths
 from src.utils.logger import setup_logger
@@ -90,7 +95,7 @@ def main():
         logger.info("")
 
         # ==================================================================
-        # STEP 3: Create Target Variables
+        # STEP 3: Create Target Variables (Classification + Regression)
         # ==================================================================
         logger.info("STEP 3: Creating target variables...")
         logger.info("-" * 80)
@@ -98,11 +103,13 @@ def main():
         if 'recession' not in quarterly_df.columns:
             raise ValueError("Recession column not found in quarterly data!")
 
-        targets_df = create_recession_targets(quarterly_df['recession'])
-
-        # Add targets to features
-        for col in targets_df.columns:
-            features_full[col] = targets_df[col]
+        # Add both classification and regression targets
+        features_full = add_targets_to_features(
+            features_df=features_full,
+            recession_series=quarterly_df['recession'],
+            quarterly_df=quarterly_df,
+            include_regression_targets=True
+        )
 
         logger.info(f"Features + Targets: {features_full.shape}")
         logger.info("")
@@ -159,19 +166,36 @@ def main():
         logger.info(f"Saved: {len(importance_df)} features ranked by importance")
         logger.info("")
 
-        # Create selected features DataFrame (with targets)
-        target_cols = [
+        # Create selected features DataFrame (with all targets - classification + regression)
+        classification_target_cols = [
             'recession_current',
             'recession_next_1q',
             'recession_next_2q',
             'recession_within_2q'
         ]
 
-        # Get selected features + targets from full features
-        selected_cols = selected_features + target_cols
+        regression_target_cols_requested = [
+            'unemployment_rate_change',
+            'unemployment_claims_change',
+            'sp500_drawdown',
+            'nasdaq_drawdown',
+            'gdp_decline'
+        ]
+
+        # Only include regression targets that exist in features_full
+        regression_target_cols = [col for col in regression_target_cols_requested if col in features_full.columns]
+
+        if len(regression_target_cols) < len(regression_target_cols_requested):
+            missing_targets = set(regression_target_cols_requested) - set(regression_target_cols)
+            logger.warning(f"Some regression targets were not created: {missing_targets}")
+
+        all_target_cols = classification_target_cols + regression_target_cols
+
+        # Get selected features + all targets from full features
+        selected_cols = selected_features + all_target_cols
         features_selected = features_full[selected_cols].copy()
 
-        # Remove rows with NaN targets
+        # Remove rows with NaN classification targets (keep regression targets even if NaN)
         valid_idx = features_selected['recession_within_2q'].notna()
         features_selected = features_selected[valid_idx]
 
@@ -184,7 +208,9 @@ def main():
         logger.info(f"Saved: {features_selected_path} ({file_size_mb:.2f} MB)")
         logger.info(f"  Shape: {features_selected.shape}")
         logger.info(f"  Features: {len(selected_features)}")
-        logger.info(f"  Targets: {len(target_cols)}")
+        logger.info(f"  Classification targets: {len(classification_target_cols)}")
+        logger.info(f"  Regression targets: {len(regression_target_cols)}")
+        logger.info(f"  Total targets: {len(all_target_cols)}")
         logger.info("")
 
         # ==================================================================
@@ -197,11 +223,12 @@ def main():
         logger.info("\nOutputs created:")
         logger.info(f"  1. {features_full_path}")
         logger.info(f"     - Shape: {features_full.shape}")
-        logger.info(f"     - All engineered features + targets")
+        logger.info(f"     - All engineered features + all targets")
         logger.info("")
         logger.info(f"  2. {features_selected_path}")
         logger.info(f"     - Shape: {features_selected.shape}")
-        logger.info(f"     - Top {len(selected_features)} features + {len(target_cols)} targets")
+        logger.info(f"     - Top {len(selected_features)} features + {len(all_target_cols)} targets")
+        logger.info(f"     - {len(classification_target_cols)} classification + {len(regression_target_cols)} regression targets")
         logger.info(f"     - Ready for model training")
         logger.info("")
         logger.info(f"  3. {importance_path}")

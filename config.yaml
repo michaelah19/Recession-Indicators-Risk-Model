@@ -12,10 +12,34 @@ nber:
   series_id: USREC  # FRED series ID for US recession indicator
   fred_api_key: ${FRED_API_KEY}  # Optional: set FRED_API_KEY environment variable
 
-# Model paths
+# Model paths and configuration
 model:
   save_dir: models
   checkpoint_dir: models/checkpoints
+  threshold: 0.5  # Recession probability threshold for Stage 2 activation
+
+  # Stage 1: Recession Classifier
+  stage1:
+    classifier_type: xgboost  # Options: xgboost, random_forest, logistic
+    hyperparameters:
+      n_estimators: 200
+      max_depth: 6
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+      scale_pos_weight: 1.86
+      random_state: 42
+
+  # Stage 2: Indicator Regressors
+  stage2:
+    regressor_type: xgboost  # Options: xgboost, random_forest
+    hyperparameters:
+      n_estimators: 100
+      max_depth: 5
+      learning_rate: 0.05
+      subsample: 0.8
+      colsample_bytree: 0.8
+      random_state: 42
 
 # Logging
 logging:
@@ -31,8 +55,8 @@ mlflow:
 # Training parameters
 training:
   random_seed: 42
-  test_size: 0.2
-  validation_size: 0.1
+  train_ratio: 0.70  # 70% training
+  validation_ratio: 0.15  # 15% validation, 15% test
 
 # Development options (set to false for production)
 dev:
