@@ -1,13 +1,14 @@
 # US Recession Indicators Risk Model
 
-ML recession predictor that predicts both recession probability (on a quarterly) AND forecasts economic indicator impacts during recession periods using 170+ years of economic data (1854-2025).
+Risk model predicts recession **probability** (on a quarterly basis) and **forecasts** economic indicators  during recessionary periods using 170+ years of economic data (1854-2025).
 
 ## Overview
 
-This project builds a **hybrid recession prediction system** by analyzing 27 economic indicators spanning over 170 years. The system uses a two-stage architecture:
+This project builds a hybrid recession prediction system by analyzing 27 economic indicators spanning over 170 years. The system uses a two-stage architecture:
 
-**Stage 1**: Predict recession probability for the next 1-2 quarters
-**Stage 2**: Forecast economic indicator changes DURING recessions (unemployment, stock markets, GDP)
+**Stage 1**: Predict recession probability for the next few quarters
+
+**Stage 2**: If a recession is forecasted, Also Forecast economic indicator changes during recession (unemployment, stock markets, GDP)
 
 The system processes raw economic data through a sophisticated [feature engineering pipeline](#-feature-engineering), creating over 5,000 predictive features before selecting the most informative ones for [model training](#️-model-architecture). See [Results](#-results-on-test-set) for model performance on test data. 
 
