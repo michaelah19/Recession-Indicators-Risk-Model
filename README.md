@@ -210,7 +210,6 @@ After comparing 3 different Stage 1 classifiers (XGBoost, Random Forest, Logisti
 │   ├── train.log           # Training logs
 │   ├── compare_models.log  # Model comparison logs
 │   └── visualize.log       # Visualization generation logs
-├── notebooks/               # Jupyter notebooks for exploration
 ├── src/                    # Source code modules
 │   ├── data/              # Data loading and processing
 │   │   ├── loader.py
@@ -294,13 +293,9 @@ python entrypoint/engineer_features.py
 
 **Execution Time**: ~2-5 minutes
 
-### 5. Start Exploring
+### 5. Train Model
 
-```bash
-make notebook  # Opens Jupyter Lab
-```
-
-### Complete Training Pipeline
+Start with the complete training pipeline:
 
 ```bash
 # 1. Train single model (XGBoost by default)
