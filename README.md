@@ -10,7 +10,7 @@ This project builds a hybrid recession prediction system by analyzing 27 economi
 
 **Stage 2**: If a recession is forecasted, Also Forecast economic indicator changes during recession (unemployment, stock markets, GDP)
 
-The system processes raw economic data through a sophisticated [feature engineering pipeline](#-feature-engineering), creating over 5,000 predictive features before selecting the most informative ones for [model training](#️-model-architecture). See [Results](#-results-on-test-set) for model performance on test data. 
+The system processes raw economic data through a sophisticated [feature engineering pipeline](#feature-engineering), creating over 5,000 predictive features before selecting the most informative ones for [model training](#️-model-architecture). See [Results](#results-on-test-set) for model performance on test data. 
 
 ### Prediction Outputs
 
