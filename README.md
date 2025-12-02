@@ -149,7 +149,7 @@ After comparing 3 different Stage 1 classifiers (XGBoost, Random Forest, Logisti
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
-**🏗️ For key design decisions, model comparison, and detailed performance metrics, see [models/models.md](models/models.md)**
+**🏗️ For key design decisions, model comparison, and detailed performance metrics, see [docs/models.md](docs/models.md)**
 
 ---
 
@@ -171,9 +171,9 @@ After comparing 3 different Stage 1 classifiers (XGBoost, Random Forest, Logisti
 │   └── external/            # External data sources
 ├── docs/                    # Technical documentation
 │   ├── methodology.md       # Technical methodology and design decisions
-│   └── data_dictionary.md   # Complete data dictionary (27 indicators)
+│   ├── data_dictionary.md   # Complete data dictionary (27 indicators)
+│   └── models.md            # Model evaluation and performance metrics
 ├── models/                  # Saved models (not in git)
-│   ├── models.md            # Model evaluation and performance metrics
 │   ├── best_model/
 │   │   ├── hybrid_recession_model.joblib
 │   │   ├── hybrid_recession_model_metadata.json
@@ -401,7 +401,7 @@ Then retrain with `python entrypoint/train.py`.
 Comprehensive documentation is available in dedicated files for deeper technical details:
 
 ### Model Documentation
-- **[models/models.md](models/models.md)** - Complete model evaluation and performance analysis
+- **[docs/models.md](docs/models.md)** - Complete model evaluation and performance analysis
   - Model comparison across 3 Stage 1 classifiers (XGBoost, Random Forest, Logistic Regression)
   - Selection rationale and trade-off analysis
   - Stage 1 and Stage 2 performance metrics

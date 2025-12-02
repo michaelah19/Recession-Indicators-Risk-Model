@@ -239,6 +239,6 @@ python entrypoint/visualize_test_predictions.py
 
 ---
 
-*For model evaluation details, see [models/models.md](../models/models.md)*
+*For model evaluation details, see [docs/models.md](../docs/models.md)*
 
 *For technical methodology, see [docs/methodology.md](../docs/methodology.md)*
