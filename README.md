@@ -35,7 +35,7 @@ The system processes raw economic data through a sophisticated [feature engineer
 
 ---
 
-## 🎯 Results on Test Set
+## Results on Test Set
 
 ### Recession Predictions: Full Timeline
 
@@ -69,7 +69,7 @@ Each plot shows:
 
 ---
 
-## 🎯 Feature Engineering
+## Feature Engineering
 
 We transform 27 raw economic indicators into predictive features through a sophisticated pipeline:
 
@@ -160,9 +160,7 @@ After comparing 3 different Stage 1 classifiers (XGBoost, Random Forest, Logisti
 
 ---
 
-## 🔧 Usage
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 .
