@@ -26,13 +26,6 @@ The system processes raw economic data through a sophisticated [feature engineer
 - 214 recession quarters (31.2% of data)
 - **Training data**: 172 samples (1980-2023) with complete regression targets
 
-### Model Performance Summary
-
-- **Test ROC-AUC**: 0.819 (recession classification)
-- **Test Recall**: 67% (catches 2 of 3 recessions)
-- **Test Specificity**: 92% (low false alarm rate)
-- **Inference Speed**: <30ms per prediction
-
 ---
 
 ## Results on Test Set
